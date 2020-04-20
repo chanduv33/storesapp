@@ -7,7 +7,7 @@ import { ManufacturerserviceService } from './manufacturerservice.service';
   providedIn: 'root'
 })
 export class DealerserviceService {
-  backendURL = 'http://localhost:8080';
+  backendURL = 'http://3.22.205.236:8080/template';
   userId = null;
   selectedProduct;
   costProd;

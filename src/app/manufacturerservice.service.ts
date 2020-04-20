@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ManufacturerserviceService {
-  backendURL = 'http://localhost:8080';
+  backendURL = 'http://3.22.205.236:8080/template';
   selectedProduct;
   userId = null;  
   productId = null;

@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 
 export class UserserviceService  {
-  backendURL = 'http://localhost:8080';
+  backendURL = 'http://3.22.205.236:8080/template';
   userId = null;
   orderId = null;
   cartedItems;
@@ -33,7 +33,7 @@ export class UserserviceService  {
       Authorization: basicAuthHeaderString
     } );
 
-    return this.http.post(`http://localhost:8080/login`, user, { headers: headers}).pipe(
+    return this.http.post(`http://3.22.205.236:8080/login`, user, { headers: headers}).pipe(
       map(
         data => {
           localStorage.setItem('token', basicAuthHeaderString);
@@ -81,7 +81,7 @@ export class UserserviceService  {
   }
 
   logoutRequest(): any {
-    return this.http.get(`http://localhost:8080/logout`);
+    return this.http.get(`http://3.22.205.236:8080/logout`);
   }
 
   setDate(order): any {

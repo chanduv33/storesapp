@@ -1,0 +1,53 @@
+<!-- <div class="card mb-3" style="max-width: 540px;" *ngFor="let product of products">
+    <div class="row no-gutters" >
+        <div class="col-md-8">
+            <img src="{{product.imageUrl}}" width="400" height="200" class="card-img" alt="...">
+        </div>
+
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{product.productName | uppercase}}</h5>
+                <p class="card-text">{{product.productCost}}</p>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-outline-info" (click)="buyProduct(product)">Place Order</button>
+    <button type="button" class="btn btn-outline-danger mt-2" (click)="addToCart(product)">Add To Cart</button>
+
+</div> -->
+
+<div class="container" >
+    <div class="row">
+        <div class="card mt-2" style="max-width: 480px;" *ngFor="let product of products" >
+            <div class="card w-lg-25 w-md-50 w-sm-100 mx-2 my-2">
+                <img class="card-img-top img-size" height="300px" width="200px" src="{{product.imageUrl}}" alt="..." />
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card-body">
+                                <h5 class="card-title">{{product.productName | uppercase}}</h5>
+                                <p class="card-text">{{product.productCost}}</p>
+                                <p class="card-text">{{product.manufacturerName}}</p>
+                            </div>
+                        </div>
+                        <div class="row  ">
+                            <div class="col-8 small ">
+                                <button type="button" class="btn btn-outline-info mr-auto"
+                                    (click)="buyProduct(product)">
+                                    <span class="align-middle mx-2 ">Place Order</span></button>
+                            </div>
+                            <div class="col-8 small " *ngIf="!checkItems(product)">
+                                <button type="button" class="btn btn-outline-danger mt-2 mr-auto"
+                                    (click)="addToCart(product)">
+                                <span class="align-middle mx-2 ">Add to cart</span></button>
+                            </div>
+                            <div class="col-8 small " *ngIf="checkItems(product)">
+                                <button type="button" class="btn btn-outline-danger mt-2 mr-auto"
+                                        (click)="goToCart()">
+                                <span class="align-middle mx-2 ">Go to cart</span></button>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

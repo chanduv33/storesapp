@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body>
+    <div class="col-md-4 offset-4 card card-body mt-4" *ngIf="statusCode === null && availableQuantity !== null">
+    <form #form="ngForm" (ngSubmit)="placeaorder(form)">
+        <div class="form-group">
+            <!-- <label for="productId">Enter product Name..</label> -->
+            <input type="hidden" class="form-control" name="productId" id="productId" aria-describedby="helpId"
+                placeholder="Enter product Name..." ngModel [(ngModel)]="service.selectedProduct.productId">
+        </div>
+        <div class="form-group">
+            <label for="productName">Enter product Name..</label>
+            <input type="text" class="form-control" name="productName" id="productName" aria-describedby="helpId"
+                placeholder="Enter product Name..." ngModel [(ngModel)]="service.selectedProduct.productName">
+        </div>
+        <div class="form-group">
+            <label for="quantity">Enter Quantity..</label>
+            <input type="number" class="form-control" name="quantity" id="quantity" [(ngModel)]="service.selectedProduct.quantity" aria-describedby="helpId"
+                placeholder="Enter Quantity..." ngModel >
+        </div>
+        <div class="form-group">
+            <!--<label for="sellingPrice">Enter product Cost..</label>-->
+            <input type="hidden" class="form-control" name="sellingPrice" value="0" id="sellingPrice" aria-describedby="helpId"
+                placeholder="Enter product Cost..." ngModel >
+        </div>
+        <div>
+            <button type="submit" class="btn btn-outline-primary">Place Order</button>
+        </div>
+    </form>
+</div>
+<div class="col-md-4 offset-4 card card-body mt-3" *ngIf="statusCode === 201">
+    <p>Order placed successfully</p>
+  </div>
+  <div class="col-md-4 offset-4 card card-body mt-3" *ngIf="availableQuantity === null">
+    <p>Available Quantity is {{service.selectedProduct.quantity}}</p>
+    <p>Please select quantity below available quantity</p>
+  </div>
+</body>
+</html>

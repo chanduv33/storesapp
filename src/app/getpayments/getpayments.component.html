@@ -1,0 +1,39 @@
+<div  >
+    
+    <table class="table" style="width:100%">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Date Of Order</th>
+                <th>Date Of Delivery</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let order of orders">
+            <tr>
+                <td>{{order.orderId}}</td>
+                <td>{{order.dateOfOrder}}</td>
+                <td>{{order.dateOfDelivery}}</td>
+                <td>{{order.status}}</td>
+                <td >
+                    <div>
+                        <ng-template #popContent>
+                            <div class="btn-group-vertical">
+                                <input type="radio"  id='s1' #s1 name='orderStatus' (change)='changeStatus($event,order.status,s1)' value="notyetdelivered"  >Not yet delivered <br>
+                                <input type="radio" id='s2' #s2 name='orderStatus' (change)='changeStatus($event,order.status,s2)' value="shipped" >Shipped <br>
+                                <input type="radio" id='s3' #s3 name='orderStatus' (change)='changeStatus($event,order.status,s3)' value="dispatched">Dispatched <br>
+                                <input type="radio" id='s4' #s4 name='orderStatus' (change)='changeStatus($event,order.status,s4)' value="outfordelivery">Out for delivery <br>
+                                <input type="radio" id='s5' #s5 name='orderStatus' (change)='changeStatus($event,order.status,s5)' value="delivered">Delivered <br>
+                            </div>
+                        </ng-template>
+                        <ng-template #popTitle>Change Status</ng-template>
+                        <button type="button" class="btn btn-outline-secondary" [ngbPopover]="popContent" (hidden)='makeChange(order)' [popoverTitle]="popTitle" placement='right'>
+                          Change Status
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

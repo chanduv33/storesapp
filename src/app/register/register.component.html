@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <div class="col-md-4 offset-4 card card-body mt-5" *ngIf="statusCode === null || statusCode === 407 || statusCode === 408">
+      <div   *ngIf="statusCode === 407">
+        <p class="text-danger">Email already exists please choose another email</p>
+      </div>
+      <div  *ngIf="statusCode === 408">
+        <p class="text-danger">Mobile number already exists please choose another number</p>
+      </div>
+      <form #online="ngForm" (ngSubmit)="registerUser(online)">
+            <div class="form-group">
+                <label for="name">Enter Name</label>
+                <input type="text" name="name" id="name" class="form-control" #name="ngModel" placeholder="Enter Your Name" ngModel required>
+                <div *ngIf="name.invalid && name.touched">
+                  <p class="text-danger" *ngIf="name.errors.required">*this is required field</p>
+                </div>
+              </div>
+          
+              <div class="form-group">
+                <label for="username">Email</label>
+                <input type="text" class="form-control" name="username" #username="ngModel" ngModel id="username" placeholder="Enter Email" required email>
+                <div *ngIf="username.invalid && username.touched">
+                    <p class="text-danger" *ngIf="username.errors.required">*this is required field</p>
+                    <p class="text-danger" *ngIf="username.errors.email">cannot match pattern</p>
+                </div>
+            </div>
+          
+              <div class="form-group">
+                <label for="password">Enter Password</label>
+                <input type="password" name="password" id="password" class="form-control" #password="ngModel" placeholder="Enter Password" ngModel 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 4 or more characters" required password>
+              <div *ngIf="password.invalid && password.touched">
+                <p class="text-danger" *ngIf="password.errors.required" >*this is required field</p>
+                <p class="text-danger" *ngIf="password.errors.pattern">*pattern cannot be matched</p>
+              </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="mobileNumber">Enter MobileNumber</label>
+                <input type="number" name="mobileNumber" id="mobileNumber" class="form-control" #mobileNumber="ngModel" placeholder="Enter Mobile number" ngModel required>
+                <div *ngIf="mobileNumber.invalid && mobileNumber.touched">
+                  <p class="text-danger" *ngIf="mobileNumber.errors.required">*this is required field</p>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="role">Select Role</label>
+                <select  class="form-control" name="role" id="role" ngModel="ROLE_ADMIN">
+                  <option value="ROLE_ADMIN">Admin</option>
+                  <option value="ROLE_DEALER">Dealer</option>
+                  <option value="ROLE_CUSTOMER">Customer</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+    <div class="col-md-4 offset-4 card card-body mt-3" *ngIf="statusCode === 201">
+      <p>Registered Successfully</p>
+    </div>
+
+  </body>
+</html>

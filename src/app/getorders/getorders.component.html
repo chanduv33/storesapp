@@ -1,0 +1,23 @@
+<div   >
+    
+    <table class="table" style="width:100%">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Date Of Order</th>
+                <th>Date Of Delivery</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let order of orders">
+            <tr>
+                <td>{{order.orderId}}</td>
+                <td>{{order.dateOfOrder}}</td>
+                <td>{{order.dateOfDelivery}}</td>
+                <td>{{order.status}}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
+</div>

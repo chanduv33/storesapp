@@ -1,0 +1,28 @@
+
+    
+    <div class="row">
+        <div class="card mt-2" style="max-width: 480px;" *ngFor="let product of products">
+            <div class="card w-lg-25 w-md-50 w-sm-100 mx-2 my-2">
+                <img class="card-img-top img-size" height="250px" width="200px" src="{{product.imageUrl}}" alt="..." />
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card-body">
+                                <h5 class="card-title">{{product.productName | uppercase}}</h5>
+                                <p class="card-text">{{product.productCost}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 small">
+                                <button type="button" class="btn btn-outline-info" (click)="selectedProduct(product)">
+                                    <span class="align-middle mx-2 ">Update</span></button>
+                            </div>
+                            <div class="col-12 small">
+                                <button type="button" class="btn btn-outline-danger mt-2" (click)="setCost(product)">
+                                    <span class="align-middle mx-2 ">Set Cost</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       

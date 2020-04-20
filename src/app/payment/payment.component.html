@@ -1,0 +1,99 @@
+<div class="card-body p-5" *ngIf="statusCode === null">
+  <h1>Select Payment Method</h1>
+  <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
+      <i class="fa fa-credit-card"></i> Credit Card/ Debit Card</a></li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+      <i class="fab fa-paypal"></i>  Cash On Delivery</a></li>
+  </ul>
+  
+  <div class="tab-content">
+  <div class="tab-pane fade show active" id="nav-tab-card">
+    <div class="container">
+      <div class='row'>
+          <div class='col-md-4'></div>
+          <div class='col-md-4'>
+            <form #form="ngForm" (ngSubmit)="pay(form)" >
+              <div class='form-row'>
+                <div class='col-md-12 form-group'>
+                  <label for="nameOnCard">Name on Card</label>
+                  <input class='form-control' size='4' type='text' name="nameOnCard" #nameOnCard="ngModel" id="nameOnCard" ngModel placeholder="Enter Name on Card" required>
+                  <div *ngIf="nameOnCard.invalid && nameOnCard.touched">
+                    <p class="text-danger" *ngIf="nameOnCard.errors.required">*this is required field</p>
+                  </div>
+                </div>
+              </div>
+              <div class='form-row'>
+                <div class='col-md-12 form-group '>
+                  <label for="cardNumber">Card Number</label>
+                  <input autocomplete='off' class='form-control' name="cardNumber" id="cardNumber" #cardNumber="ngModel"  ngModel size='20' type='text' placeholder="Enter Card Number" required>
+                  <div *ngIf="cardNumber.invalid && cardNumber.touched">
+                    <p class="text-danger" *ngIf="cardNumber.errors.required">*this is required field</p>
+                  </div>
+                </div>
+              </div>
+              <div class='form-row'>
+                <div class='col-xs-4 form-group'>
+                  <label for="cvc">CVC</label>
+                  <input autocomplete='off' class='form-control ' name="cvc" id="cvc" #cvc="ngModel" ngModel placeholder='ex. 311' size='4' type='text' required>
+                  <div *ngIf="cvc.invalid && cvc.touched">
+                    <i class="text-danger" *ngIf="cvc.errors.required">**</i>
+                  </div>
+                </div>
+                <div class='col-xs-4 form-group expiration '>
+                  <label for='MM'>Expiration</label>
+                  <input class='form-control card-expiry-month' name="MM" id="MM" #MM="ngModel" ngModel placeholder='MM' size='2' type='text' required>
+                  <div *ngIf="MM.invalid && MM.touched">
+                    <i class="text-danger" *ngIf="MM.errors.required">**</i>
+                  </div>
+                </div>
+                <div class='col-xs-4 form-group expiration '>
+                  <label for="YYYY">YYYY</label>
+                  <input class='form-control card-expiry-year' name="YYYY" id="YYYY" #YYYY="ngModel" ngModel placeholder='YYYY' size='4' type='text' required>
+                  <div *ngIf="YYYY.invalid && YYYY.touched">
+                    <i class="text-danger" *ngIf="YYYY.errors.required">**</i>
+                  </div>
+                </div>
+              </div>
+              <div class='form-row'>
+                <div class='col-md-12'>
+                  <div class='form-control total btn btn-info'>
+                    Total:
+                    <span class='amount'>Rs {{amount}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class='form-row'>
+                <div class='col-md-12 '>
+                  <button class='form-control btn btn-primary' type='submit'>Pay »</button>
+                </div>
+              </div>
+              <div class='form-row' *ngIf ="status !== null">
+                <div class='col-md-12 error form-group hide'>
+                  <div class='alert-danger alert'>
+                    Please correct the errors and try again.
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class='col-md-4'></div>
+      </div>
+  </div>
+  </div> <!-- tab-pane.// -->
+  <div class="tab-pane fade" id="nav-tab-paypal">
+    <div class="col-12 small">
+      <button type="button" class="btn btn-outline-info" (click)="order()">
+          <span class="align-middle mx-2 ">Place Order</span></button>
+  </div>
+  </div>
+  <!-- tab-pane.// -->
+  </div> <!-- tab-content .// -->
+
+  </div> <!-- card-body.// -->
+
+  <div class="col-md-4 offset-4 card card-body mt-3" *ngIf="statusCode === 201">
+    <p>Order Placed Successfully</p>
+  </div>

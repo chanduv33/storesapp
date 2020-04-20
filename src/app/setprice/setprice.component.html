@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set CostPrice</title>
+</head>
+<body>
+    <div class="col-md-4 offset-4 card card-body mt-5">
+        <form #form="ngForm" (ngSubmit)="setPrice(form)">
+            <div class="form-group">
+                <label for="dealersProductId"></label>
+                <input type="hidden" name="dealersProductId" id="dealersProductId" ngModel [(ngModel)]="service.selectedProduct.dealersProductId" class="form-control" >
+              </div>
+            <div class="form-group">
+              <label for="sellingPrice">Enter New Cost Price</label>
+              <input type="text" name="sellingPrice" id="sellingPrice" ngModel [(ngModel)]="service.selectedProduct.sellingPrice" class="form-control" >
+            </div>
+            <div>
+                <button type="submit" class="btn btn-outline-primary">Set Price</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

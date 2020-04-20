@@ -1,0 +1,16 @@
+
+.carousel-item {
+    height: 65vh;
+    min-height: 35px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .jumbotron {
+    background-image: url("http://www.tutorialmines.net/wp-content/uploads/2015/11/info-icon.png");
+    min-height: 50%;
+      background-repeat: no-repeat;
+    background-position: right top;
+      }

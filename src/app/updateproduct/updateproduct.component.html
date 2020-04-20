@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body>
+    <div class="col-md-4 offset-4 card card-body mt-4">
+    <form #form="ngForm" (ngSubmit)="updateProduct(form)">
+        <div class="form-group">
+            <!-- <label for="productId">Enter product Name..</label> -->
+            <input type="hidden" class="form-control" name="productId" id="productId" aria-describedby="helpId"
+                placeholder="Enter product Name..." ngModel [(ngModel)]="service.selectedProduct.productId">
+        </div>
+        <div class="form-group">
+            <label for="productName">Enter product Name..</label>
+            <input type="text" class="form-control" name="productName" id="productName" aria-describedby="helpId"
+                placeholder="Enter product Name..." ngModel [(ngModel)]="service.selectedProduct.productName">
+        </div>
+        <div class="form-group">
+            <label for="productCost">Enter product Cost..</label>
+            <input type="number" class="form-control" name="productCost" id="productCost" aria-describedby="helpId"
+                placeholder="Enter product Cost..." ngModel [(ngModel)]="service.selectedProduct.productCost">
+        </div>
+        <div class="form-group">
+            <label for="imageUrl">Enter product Image ..</label>
+            <input type="text" class="form-control" name="imageUrl" id="imageUrl" aria-describedby="helpId"
+                placeholder="Enter product Image ..." ngModel [(ngModel)]="service.selectedProduct.imageUrl">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Enter Description ..</label>
+            <input type="text" class="form-control" name="description" id="description" aria-describedby="helpId"
+                placeholder="Enter Description ..." ngModel [(ngModel)]="service.selectedProduct.description">
+        </div>
+
+        <div class="form-group">
+            <!--<label for="productDescription">Enter product Image ..</label>-->
+            <input type="hidden" class="form-control" name="productDescription" id="productDescription" aria-describedby="helpId"
+                placeholder="Enter product Image ..." ngModel [(ngModel)]="service.selectedProduct.productDescription">
+        </div>
+        <div class="form-group">
+            <label for="quantity">Enter product Cost..</label>
+            <input type="number" class="form-control" name="quantity" id="quantity" aria-describedby="helpId"
+                placeholder="Enter Quantity..." ngModel [(ngModel)]="service.selectedProduct.quantity">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-outline-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="col-md-4 offset-4 card card-body mt-5">
+        <form #form="ngForm" (ngSubmit)="loginData(form)">
+          <div  *ngIf="statusCode === 407">
+            <p class="text-danger">Bad Credentials</p>
+          </div>
+          <div  *ngIf="statusCode === 408">
+            <p class="text-danger">Details not exixts</p>
+          </div>
+              <div class="form-group">
+                <label for="username">Enter Mail</label>
+                <input type="email" name="username" id="username" class="form-control" placeholder="Enter Your Email" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="password">Enter Password</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" ngModel>
+              </div>
+              <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</body>
+</html>

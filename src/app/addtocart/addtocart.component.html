@@ -1,0 +1,41 @@
+<div *ngIf = "role === 'ROLE_CUSTOMER'">
+<div class="card mb-3" style="max-width: 540px;" *ngFor="let item of items">
+    <div class="row no-gutters" >
+        <div class="col-md-8">
+            <img src="{{item.dealerProd.imageUrl}}" width="400" height="200" class="card-img" alt="...">
+        </div>
+
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{item.dealerProd.productName | uppercase}}</h5>
+                <p class="card-text">{{item.dealerProd.sellingPrice}}</p>
+                <p class="card-text">{{item.quantity}}</p>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-outline-info" (click)="buyProduct(item.dealerProd,item)">Place Order</button>
+    <button type="button" class="btn btn-outline-info" (click)="removeItem(item)">Remove</button>   
+</div>
+<div *ngIf= "count === 0">
+    <p>No products added to cart</p>
+</div>
+</div>
+<div *ngIf = "role === 'ROLE_DEALER'">
+    <div class="card mb-3" style="max-width: 540px;" *ngFor="let item of items">
+           <div class="row no-gutters" >
+        <div class="col-md-8">
+                <img src="{{item.product.imageUrl}}" width="400" height="200" class="card-img" alt="...">
+            </div>
+    
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{item.product.productName | uppercase}}</h5>
+                    <p class="card-text">{{item.product.productCost}}</p>
+                    <p class="card-text">{{item.quantity}}</p>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-info" (click)="buyProduct(item.product,item)">Place Order</button>
+        <button type="button" class="btn btn-outline-info" (click)="removeItem(item)">Remove</button>
+    </div>
+    </div>

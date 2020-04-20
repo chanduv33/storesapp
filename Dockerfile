@@ -8,4 +8,4 @@ RUN npm run build --prod --base-href=storesapp
 
 # stage 2
 FROM nginx:alpine
-COPY --from=build-step /app/dist/storesmanagementapp /usr/share/nginx/html
+COPY --from=build-step /app/dist/storesmanagementsystem /usr/share/nginx/html

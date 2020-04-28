@@ -14,6 +14,9 @@ export class HeaderComponent implements OnInit , DoCheck {
   constructor(public router: Router, public service: UserserviceService) { }
 
   ngOnInit() {
+    if(this.role === null) {
+      this.router.navigateByUrl('/storesapp');
+    }
   }
 
   ngDoCheck() {

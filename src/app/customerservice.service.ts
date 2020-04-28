@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CustomerserviceService {
-  backendURL = 'http://3.22.205.236:8080/template';
+  backendURL = 'http://52.14.132.191:8080/template';
   selectedProduct;
   constructor(public http: HttpClient) { }
 

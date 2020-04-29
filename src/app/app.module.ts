@@ -34,6 +34,7 @@ import { AddProdComponent } from './add-prod/add-prod.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MatCheckboxModule, MatButtonModule } from 'node_modules/@angular/material';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import { MatDialogModule, MatCheckboxModule, MatButtonModule } from 'node_module
     MatButtonModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorBasicAuthService, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorBasicAuthService, multi: true},
+    {provide: LocationStrategy , useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

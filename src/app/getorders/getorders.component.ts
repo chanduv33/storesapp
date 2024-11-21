@@ -9,18 +9,17 @@ import { Orders } from '../Orders';
   styleUrls: ['./getorders.component.css']
 })
 export class GetordersComponent implements OnInit {
-orders: Orders[];
-role=null;
+  orders: Orders[];
+  role = null;
   constructor(public service: UserserviceService, public router: Router) { }
 
   ngOnInit() {
     this.getOrders();
-    this.role = JSON.parse(localStorage.getItem('user')).role;
+    this.role = localStorage.getItem('role');
   }
 
   getOrders() {
     this.service.getMyOrders().subscribe(resp => {
-      console.log(resp.orders);
       this.orders = resp.orders;
       console.log('orders component', this.orders);
     }, err => {
@@ -31,6 +30,6 @@ role=null;
     });
   }
 
-  
+
 
 }

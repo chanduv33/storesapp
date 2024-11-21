@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit , DoCheck {
   }
 
   ngDoCheck() {
-    if (localStorage.getItem('user')) {
-      this.role = JSON.parse(localStorage.getItem('user')).role;
+    if (localStorage.getItem('role')) {
+      this.role = localStorage.getItem('role');
       console.log(this.role);
     } else {
       this.role = null;

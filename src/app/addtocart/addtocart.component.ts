@@ -13,22 +13,21 @@ import { CustomerserviceService } from '../customerservice.service';
 export class AddtocartComponent implements OnInit {
   role: any;
   items: Cart[];
-  count : number;
-  quantity= null;
-  constructor(public service: UserserviceService, public router: Router,public cservice: CustomerserviceService ,public dservice: DealerserviceService) { }
+  count: number;
+  quantity = null;
+  constructor(public service: UserserviceService, public router: Router, public cservice: CustomerserviceService, public dservice: DealerserviceService) { }
 
   ngOnInit() {
-    this.role = JSON.parse(localStorage.getItem('user')).role;
+    this.role = localStorage.getItem('role');
     this.getItems();
   }
 
   getItems() {
     this.service.getCartItems().subscribe(resp => {
-      console.log(resp);
-      console.log(this.role);
       this.items = resp.items;
       this.service.selectedItems = this.items;
-      console.log( this.service.selectedItems);
+      console.log(resp.items);
+      console.log(this.service.selectedItems);
       console.log(this.items.length);
       this.count = this.items.length;
       console.log('items component', this.items);
@@ -39,16 +38,18 @@ export class AddtocartComponent implements OnInit {
       console.log('get request is sent');
     });
   }
-  buyProduct(product,item) {
+  buyProduct(product, item) {
     if (this.role === 'ROLE_CUSTOMER') {
-      this.quantity=item.quantity;
+      this.quantity = item.quantity;
       this.cservice.selectedProduct = product;
+      this.cservice.selectedProduct.isCartItem = true;
       this.cservice.selectedProduct.quantity = this.quantity
       console.log(this.cservice.selectedProduct);
       this.router.navigateByUrl('/pay');
     } else if (this.role === 'ROLE_DEALER') {
-      this.quantity=item.quantity;
+      this.quantity = item.quantity;
       this.service.selectedProduct = product;
+      this.cservice.selectedProduct.isCartItem = true;
       this.service.selectedProduct.quantity = this.quantity
       product.quantity = this.quantity
       this.dservice.costProd = product;

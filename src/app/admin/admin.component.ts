@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
   statusCode = null;
   resp: any;
   clicked = false;
-  role = 'ROLE_MANUFACTURER'
+  role = 'ROLE_MANUFACTURER';
   constructor(public service: UserserviceService, public router: Router) { }
 
   ngOnInit() {

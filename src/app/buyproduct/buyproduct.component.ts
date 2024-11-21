@@ -25,8 +25,8 @@ export class BuyproductComponent implements OnInit {
 
   placeaorder(form) {
     console.log(form.value);
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.role = JSON.parse(localStorage.getItem('user')).role;
+    
+    this.role = localStorage.getItem('role');
 
     if (this.availableQuantity > this.service.selectedProduct.quantity) {
       this.user.dealersProds = [

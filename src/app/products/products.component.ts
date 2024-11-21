@@ -15,7 +15,7 @@ export class ProductsComponent implements OnInit {
   constructor(public service: ManufacturerserviceService, public router: Router) { }
   ngOnInit() {
     this.getProducts();
-    this.role = JSON.parse(localStorage.getItem('user')).role;
+    this.role = localStorage.getItem('role');
   }
   getProducts() {
     this.service.getAllProducts().subscribe(resp => {

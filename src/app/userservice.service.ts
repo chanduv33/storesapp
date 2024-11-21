@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 
-export class UserserviceService  {
-  backendURL = 'http://52.14.132.191:8080/template';
+export class UserserviceService {
+  backendURL = 'http://localhost:8081/security-service';
+  cartURL = 'http://localhost:8081/cart-service';
+  orderURL = 'http://localhost:8081/order-service';
   userId = null;
   orderId = null;
   cartedItems;
@@ -18,50 +20,18 @@ export class UserserviceService  {
   selectedItems;
   itemCount = 0;
   itemId = null;
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) { }
   registerRequest(data) {
     console.log('service', data);
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
-    .set('Accept', 'application/json');
-    return this.http.post(`${this.backendURL}/register`, data, {headers: headers});
+      .set('Accept', 'application/json');
+    return this.http.post(`${this.backendURL}/User/register`, data, { headers: headers });
   }
 
-  loginRequest(user): any {
-    let basicAuthHeaderString = 'Basic ' + window.btoa(user.username + ':' + user.password);
+  loginRequest(user): Observable<HttpResponse<object>> {
 
-    let headers = new HttpHeaders( {
-      Authorization: basicAuthHeaderString
-    } );
-
-    return this.http.post(`http://52.14.132.191:8080/login`, user, { headers: headers}).pipe(
-      map(
-        data => {
-          localStorage.setItem('token', basicAuthHeaderString);
-          localStorage.setItem('authenticatedUser',user.username);
-          return data;
-        }
-      )
-    );
-  //  return this.http.post(`${this.backendURL}/login`, data);
+    return this.http.post(`http://localhost:8081/login`, user, { observe: 'response' });
   }
-  // loginRequest(username,password): any {
-  //   const basicAuthHeaderString = 'Basic ' + window.btoa(username + ':' + password);
-
-  //   const headers = new HttpHeaders( {
-  //     Authorization: basicAuthHeaderString
-  //   } )
-
-  //   return this.http.post(`${this.backendURL}/login`, {headers}).pipe(
-  //     map(
-  //       data => {
-  //         localStorage.setItem('token', basicAuthHeaderString);
-  //         localStorage.setItem('authenticatedUser',username);
-  //         return data;
-  //       }
-  //     )
-  //   );
-  // //  return this.http.post(`${this.backendURL}/login`, data);
-  // }
 
   getAuthToken() {
     return localStorage.getItem('token');
@@ -71,17 +41,17 @@ export class UserserviceService  {
   }
 
   getMyOrders(): any {
-    this.userId = JSON.parse(localStorage.getItem('user')).userId;
-    return this.http.get(`${this.backendURL}/getMyOrders`, { params: { userId: this.userId}});
+    this.userId = localStorage.getItem('userId');
+    return this.http.get(`${this.orderURL}/Order`, { params: { userId: this.userId } });
   }
 
   removeManufacturer(user): any {
     this.userId = user.userId;
-    return this.http.get(`${this.backendURL}/deleteMan`, { params: { userId: this.userId}});
+    return this.http.get(`${this.backendURL}/User`, { params: { userId: this.userId } });
   }
 
   logoutRequest(): any {
-    return this.http.get(`http://52.14.132.191:8080/logout`);
+    return this.http.get(`http://localhost:8080/logout`);
   }
 
   setDate(order): any {
@@ -89,33 +59,29 @@ export class UserserviceService  {
     console.log(order);
     this.orderId = order.orderId;
     this.deliveredOn = order.deliveredOn;
-    return this.http.get(`${this.backendURL}/deliveredOn`, { params: { orderId: this.orderId, deliveredOn : this.deliveredOn}});
+    return this.http.get(`${this.backendURL}/Order/deliveredOn`, { params: { orderId: this.orderId, deliveredOn: this.deliveredOn } });
   }
 
   getAllManufacturers(): any {
-   this.selectedUser = localStorage.getItem('authenticatedUser');
-   let basicAuthHeaderString = 'Basic ' + window.btoa(this.selectedUser.username + ':' + this.selectedUser.password);
-   const headers = new HttpHeaders( {
-      Authorization: basicAuthHeaderString
-    } );
-   return this.http.get(`${this.backendURL}/getAllMans`, { headers});
+    return this.http.get(`http://localhost:8081/user-service/User?role=MANUFACTURER`);
   }
 
   updateMan(user): any {
-    return this.http.post(`${this.backendURL}/updateMan`, user);
+    return this.http.put(`http://localhost:8081/user-service/User`, user);
   }
 
-  addItemToCart(user): any {
-    return this.http.post(`${this.backendURL}/addtocart`, user);
+  addItemToCart(item): any {
+    this.userId = localStorage.getItem('userId');
+    return this.http.post(`${this.cartURL}/Cart/`, item);
   }
 
   getCartItems(): any {
-    this.userId = JSON.parse(localStorage.getItem('user')).userId;
-    return this.http.get(`${this.backendURL}/getItems`, { params: { userId: this.userId}});
+    this.userId = localStorage.getItem('userId');
+    return this.http.get(`${this.cartURL}/Cart`, { params: { userId: this.userId } });
   }
 
   removeCartItem(item): any {
     this.itemId = item.itemId;
-    return this.http.get(`${this.backendURL}/remItem`, { params: { itemId: this.itemId}});
+    return this.http.delete(`${this.backendURL}/Cart/${this.itemId}`);
   }
 }

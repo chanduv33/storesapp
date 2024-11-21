@@ -1,9 +1,10 @@
 export interface Product {
-    productId?: number;
+    id: number;
     productName: string;
     productCost: number;
     imageUrl: string;
     description: string;
-    quantity:number;
+    quantity: number;
+    isCartItem: boolean;
 
 }

@@ -10,8 +10,8 @@
     <form #form="ngForm" (ngSubmit)="updateProduct(form)">
         <div class="form-group">
             <!-- <label for="productId">Enter product Name..</label> -->
-            <input type="hidden" class="form-control" name="productId" id="productId" aria-describedby="helpId"
-                placeholder="Enter product Name..." ngModel [(ngModel)]="service.selectedProduct.productId">
+            <input type="hidden" class="form-control" name="id" id="id" aria-describedby="helpId"
+                placeholder="Enter product Name..." ngModel [(ngModel)]="service.selectedProduct.id">
         </div>
         <div class="form-group">
             <label for="productName">Enter product Name..</label>
@@ -23,11 +23,11 @@
             <input type="number" class="form-control" name="productCost" id="productCost" aria-describedby="helpId"
                 placeholder="Enter product Cost..." ngModel [(ngModel)]="service.selectedProduct.productCost">
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="imageUrl">Enter product Image ..</label>
-            <input type="text" class="form-control" name="imageUrl" id="imageUrl" aria-describedby="helpId"
+            <input type="file" class="form-control" name="imageUrl" id="imageUrl" aria-describedby="helpId"
                 placeholder="Enter product Image ..." ngModel [(ngModel)]="service.selectedProduct.imageUrl">
-        </div>
+        </div> -->
 
         <div class="form-group">
             <label for="description">Enter Description ..</label>
@@ -41,7 +41,7 @@
                 placeholder="Enter product Image ..." ngModel [(ngModel)]="service.selectedProduct.productDescription">
         </div>
         <div class="form-group">
-            <label for="quantity">Enter product Cost..</label>
+            <label for="quantity">Enter Quantity..</label>
             <input type="number" class="form-control" name="quantity" id="quantity" aria-describedby="helpId"
                 placeholder="Enter Quantity..." ngModel [(ngModel)]="service.selectedProduct.quantity">
         </div>

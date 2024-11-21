@@ -7,35 +7,37 @@ import { ManufacturerserviceService } from './manufacturerservice.service';
   providedIn: 'root'
 })
 export class DealerserviceService {
-  backendURL = 'http://52.14.132.191:8080/template';
+  backendURL = 'http://localhost:8081/product-service';
   userId = null;
   selectedProduct;
   costProd;
   constructor(public http: HttpClient) {
 
-   }
+  }
 
-   updateDealerProduct(product): any {
-     console.log(product);
-     return this.http.post(`${this.backendURL}/updateDealerProduct`, product);
-   }
+  updateDealerProduct(product): any {
+    console.log(product);
+    return this.http.post(`${this.backendURL}/Product`, product);
+  }
 
-   getAllMansProducts(): any {
-     return this.http.get(`${this.backendURL}/getMansProds`);
-   }
+  getAllMansProducts(): any {
+    return this.http.get(`http://localhost:8081/product-service/Products`);
+  }
 
-   placeOrder(data): any {
-     console.log(data);
-     return this.http.post(`${this.backendURL}/dealerOrder`, data);
-   }
+  placeOrder(data): any {
+    console.log(data);
+    this.userId = localStorage.getItem('userId');
+    return this.http.post(`${this.backendURL}/Order`, data, { params: { userId: this.userId } });
+  }
 
-   getProducts(): any {
-    this.userId = JSON.parse(localStorage.getItem('user')).userId;
-    return this.http.get(`${this.backendURL}/getProds`, { params: { userId: this.userId}});
+  getProducts(): any {
+    this.userId = localStorage.getItem('userId');
+    return this.http.get(`${this.backendURL}/Products`, { params: { userId: this.userId } });
   }
 
   setSellingPrice(data): any {
-    return this.http.post(`${this.backendURL}/setSellingPrice`, data);
+    const userID = localStorage.getItem('userId');
+    return this.http.post(`${this.backendURL}/Product/Price`, data, { params: { userId: userID } });
   }
 
 }

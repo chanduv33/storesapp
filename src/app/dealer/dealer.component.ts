@@ -14,38 +14,48 @@ export class DealerComponent implements OnInit {
   products: Product[];
   quantity = 0;
   user: any;
-  item: Cart;
+  item: any;
   existingItems: Cart[];
   itemsToDisplay: any[];
-  constructor( public dservice: DealerserviceService, public router: Router, public service: UserserviceService ) { }
+  constructor(public dservice: DealerserviceService, public router: Router, public service: UserserviceService) { }
 
   ngOnInit() {
-    this.existingItems = JSON.parse(localStorage.getItem('user')).items;
+    this.existingItems = JSON.parse(localStorage.getItem('items'));
     console.log(this.existingItems);
     this.getAllProducts();
-    
+    this.getCartItems();
+
   }
   addToCart(product) {
-    this.user = JSON.parse(localStorage.getItem('user'));
     if (this.checkItems(product)) {
       return false;
     } else {
-    this.quantity = Number(window.prompt('Enter number of items'));
-    console.log(this.quantity);
-    if (this.quantity === 0) {
-      return;
-    }
-    this.user.items = [
-      {
-        itemProductId : product.productId,
-        quantity: this.quantity
+      this.quantity = Number(window.prompt('Enter number of items'));
+      if (this.quantity === 0) {
+        return;
       }
-    ];
-    this.service.addItemToCart(this.user).subscribe(resp => {
-      console.log(resp);
-      this.existingItems.push(product);
-      console.log('Added to cart');
-      this.router.navigateByUrl('/cartitems');
+      this.item = {
+        itemProductId: product.id,
+        quantity: this.quantity,
+        userId: localStorage.getItem('userId')
+      };
+
+      this.service.addItemToCart(this.item).subscribe(resp => {
+        this.existingItems.push(product);
+        console.log('Added to cart');
+        this.router.navigateByUrl('/cartitems');
+      }, err => {
+        console.log(err);
+        this.router.navigateByUrl('/unauth');
+      }, () => {
+        console.log('get request is sent');
+      });
+    }
+  }
+  getAllProducts() {
+    this.dservice.getAllMansProducts().subscribe(resp => {
+      this.products = resp.products;
+      console.log('product component', this.products);
     }, err => {
       console.log(err);
       this.router.navigateByUrl('/unauth');
@@ -53,21 +63,20 @@ export class DealerComponent implements OnInit {
       console.log('get request is sent');
     });
   }
+
+  getCartItems() {
+    this.service.getCartItems().subscribe(resp => {
+      console.log(resp);
+      this.existingItems = resp.items;
+      console.log(this.existingItems);
+    }, err => {
+      console.log(err);
+      this.router.navigateByUrl('/unauth');
+    }, () => {
+      console.log('get request is sent');
+    });
   }
-  getAllProducts() {
-      this.dservice.getAllMansProducts().subscribe(resp => {
-        console.log(resp.products);
-        this.products = resp.products;
-        this.existingItems  = JSON.parse(localStorage.getItem('user')).items;
-        console.log(this.existingItems);
-        console.log('product component', this.products);
-      }, err => {
-        console.log(err);
-        this.router.navigateByUrl('/unauth');
-      }, () => {
-        console.log('get request is sent');
-      });
-  }
+
 
   buyProduct(product) {
     this.dservice.selectedProduct = product;
@@ -75,7 +84,6 @@ export class DealerComponent implements OnInit {
   }
 
   checkItems(product): any {
-    console.log(product);
     for (let index = 0; index < this.existingItems.length; index++) {
       if (this.existingItems[index].itemProductId === product.productId) {
         return true;

@@ -17,8 +17,8 @@ export class DealerproductsComponent implements OnInit {
   }
   getProducts() {
     this.service.getProducts().subscribe(resp => {
-      console.log(resp.dealerProds);
-      this.products = resp.dealerProds;
+      console.log(resp);
+      this.products = resp.products;
       console.log('product component', this.products);
     }, err => {
       console.log(err);
@@ -29,7 +29,6 @@ export class DealerproductsComponent implements OnInit {
   }
 
     updatableProduct(product) {
-    console.log(product);
     this.service.selectedProduct = product;
     console.log(this.service.selectedProduct);
     this.router.navigateByUrl('/updatedealerprod');
@@ -38,7 +37,6 @@ export class DealerproductsComponent implements OnInit {
   setPrice(product) {
     console.log(product);
     this.service.selectedProduct = product;
-    console.log(this.service.selectedProduct);
     this.router.navigateByUrl('/setprice');
   }
 

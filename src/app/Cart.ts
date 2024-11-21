@@ -2,8 +2,11 @@ import { Product } from './Product';
 import { Products } from './Products';
 
 export interface Cart {
+    id?: number;
     itemProductId: number;
-    product: Product;
-    dealerProduct: Products;
+    userId: number;
     quantity: number;
+    paymentType?: string;
+    productName?: string;
+    productCost?: number;
 }

@@ -18,7 +18,7 @@ export class UpdateproductComponent implements OnInit {
     console.log(form.value);
     this.service.updateProduct(form.value).subscribe(resp => {
       console.log(resp);
-      this.router.navigateByUrl('/getprods');
+      this.router.navigateByUrl('/products');
     }, err => {
       console.log(err);
       this.router.navigateByUrl('/unauth');
